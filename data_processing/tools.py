@@ -143,11 +143,11 @@ def calculate_mfcc(audio_filename):
         audio = (audio[:, 0] + audio[:, 1]) / 2
 
     # Calculate MFCC feature with the window frame it was designed for
-    input_vectors = mfcc(audio, winlen=0.02, winstep=0.01, samplerate=fs, numcep=MFCC_INPUTS, nfft=NFFT)
+    input_vectors = mfcc(audio, winlen=0.02, winstep=0.033333, samplerate=fs, numcep=MFCC_INPUTS, nfft=NFFT)
 
-    input_vectors = [average(input_vectors[:, i], 5) for i in range(MFCC_INPUTS)]
+    #input_vectors = [average(input_vectors[:, i], 5) for i in range(MFCC_INPUTS)]
 
-    feature_vectors = np.transpose(input_vectors)
+    #feature_vectors = np.transpose(input_vectors)
 
     return feature_vectors
 
