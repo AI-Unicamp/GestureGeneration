@@ -149,7 +149,7 @@ def calculate_mfcc(audio_filename):
 
     #feature_vectors = np.transpose(input_vectors)
 
-    return feature_vectors
+    return input_vectors
 
 def extract_prosodic_features(audio_filename):
     """
