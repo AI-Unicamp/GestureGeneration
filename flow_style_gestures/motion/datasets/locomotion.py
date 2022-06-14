@@ -3,7 +3,7 @@ import numpy as np
 from .motion_data import MotionDataset, TestDataset
 from torch.utils.data import Dataset
 from sklearn.preprocessing import StandardScaler
-from visualization.plot_animation import plot_animation
+#from visualization.plot_animation import plot_animation
 
 def mirror_data(data):
     aa = data.copy()
@@ -123,7 +123,7 @@ class Locomotion():
             filename_ = f'{filename}_{str(i)}.mp4'
             print('writing:' + filename_)
             parents = np.array([0,1,2,3,4,1,6,7,8,1,10,11,12,12,14,15,16,12,18,19,20]) - 1
-            plot_animation(anim_clip[i,self.seqlen:,:], parents, filename_, fps=self.frame_rate, axis_scale=60)
+           #plot_animation(anim_clip[i,self.seqlen:,:], parents, filename_, fps=self.frame_rate, axis_scale=60)
 
     def n_channels(self):
         return self.n_x_channels, self.n_cond_channels
