@@ -3,7 +3,7 @@ import os
 import torch
 import torch.nn.functional as F
 import numpy as np
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 from tensorboardX import SummaryWriter
 from torch.utils.data import DataLoader
 from .utils import save, load, plot_prob
