@@ -33,6 +33,7 @@ def model_and_diffusion_defaults():
         rescale_learned_sigmas=True,
         use_checkpoint=False,
         use_scale_shift_norm=True,
+        motion_features=249
     )
 
 
@@ -56,6 +57,7 @@ def create_model_and_diffusion(
     rescale_learned_sigmas,
     use_checkpoint,
     use_scale_shift_norm,
+    motion_features
 ):
     #model = create_model(
     #    image_size,
@@ -70,9 +72,9 @@ def create_model_and_diffusion(
     #    use_scale_shift_norm=use_scale_shift_norm,
     #    dropout=dropout,
     #)
-    
-    model = PoseGenerator()
-    
+
+    model = PoseGenerator(pose_dim=motion_features)
+
     diffusion = create_gaussian_diffusion(
         steps=diffusion_steps,
         learn_sigma=learn_sigma,

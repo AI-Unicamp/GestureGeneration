@@ -14,6 +14,7 @@ import tempfile
 import warnings
 from collections import defaultdict
 from contextlib import contextmanager
+import wandb
 
 DEBUG = 10
 INFO = 20
@@ -66,11 +67,15 @@ class HumanOutputFormat(KVWriter, SeqWriter):
         # Write out the data
         dashes = "-" * (keywidth + valwidth + 7)
         lines = [dashes]
+        to_log_key, to_log_val = [], []
         for (key, val) in sorted(key2str.items(), key=lambda kv: kv[0].lower()):
+            to_log_key.append(key)
+            to_log_val.append(val)
             lines.append(
                 "| %s%s | %s%s |"
                 % (key, " " * (keywidth - len(key)), val, " " * (valwidth - len(val)))
             )
+        wandb.log({k:float(v) for k,v in zip(to_log_key, to_log_val)})
         lines.append(dashes)
         self.file.write("\n".join(lines) + "\n")
 
@@ -492,4 +497,3 @@ def scoped_configure(dir=None, format_strs=None, comm=None):
     finally:
         Logger.CURRENT.close()
         Logger.CURRENT = prevlogger
-

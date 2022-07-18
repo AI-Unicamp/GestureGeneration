@@ -1,6 +1,7 @@
 import copy
 import functools
 import os
+import wandb
 
 import blobfile as bf
 import numpy as np
@@ -159,6 +160,7 @@ class TrainLoop:
         self.model.convert_to_fp16()
 
     def run_loop(self):
+        wandb.watch(self.model, log="all", log_freq=10)
         while (
             not self.lr_anneal_steps
             or self.step + self.resume_step < self.lr_anneal_steps
@@ -167,6 +169,7 @@ class TrainLoop:
             self.run_step(batch, cond)
             if self.step % self.log_interval == 0:
                 logger.dumpkvs()
+                wandb.log({"step": self.step})
             if self.step % self.save_interval == 0:
                 self.save()
                 # Run for a finite amount of time in integration tests.
